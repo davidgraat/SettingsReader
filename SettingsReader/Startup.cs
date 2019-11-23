@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SettingsReader.Application;
 
 namespace SettingsReader
 {
@@ -31,6 +32,9 @@ namespace SettingsReader
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var settings = new MySettings();
+            this.Configuration.Bind("MySettings", settings);
+            services.AddSingleton<IMySettings>(settings);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

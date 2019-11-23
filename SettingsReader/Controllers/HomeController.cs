@@ -4,14 +4,28 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using SettingsReader.Application;
 using SettingsReader.Models;
 
 namespace SettingsReader.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMySettings settings;
+        private readonly IConfiguration configuration;
+
+        public HomeController(IMySettings settings, IConfiguration configuration)
+        {
+            this.settings = settings;
+            this.configuration = configuration;
+        }
+
         public IActionResult Index()
         {
+            ViewBag.EnviromentName = settings.EnvironmentName;
+            ViewBag.VariableToOverride = settings.VariableToOverride;
+            ViewBag.SecretConnectionString = configuration["SecretConnectionString"] ?? string.Empty;
             return View();
         }
 
