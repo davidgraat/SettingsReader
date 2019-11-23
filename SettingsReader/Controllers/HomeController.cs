@@ -25,7 +25,8 @@ namespace SettingsReader.Controllers
         {
             ViewBag.EnviromentName = settings.EnvironmentName;
             ViewBag.VariableToOverride = settings.VariableToOverride;
-            ViewBag.SecretConnectionString = configuration["SecretConnectionString"] ?? string.Empty;
+            ViewBag.SecretVariable = configuration["SecretVariable"] ?? string.Empty;
+            ViewBag.SecretConnectionString = configuration.GetConnectionString("SecretConnectionString") ?? string.Empty;
             return View();
         }
 
