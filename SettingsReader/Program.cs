@@ -19,11 +19,6 @@ namespace SettingsReader
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging =>
-                {
-                    logging.AddFilter("Microsoft", LogLevel.Warning);
-                    logging.AddFilter("System", LogLevel.Warning);
-                })
                 .UseStartup<Startup>();
     }
 }
