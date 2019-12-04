@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using SettingsReader.Application;
 using SettingsReader.Models;
 
@@ -14,11 +15,13 @@ namespace SettingsReader.Controllers
     {
         private readonly IMySettings settings;
         private readonly IConfiguration configuration;
+        private readonly ILogger<HomeController> logger;
 
-        public HomeController(IMySettings settings, IConfiguration configuration)
+        public HomeController(IMySettings settings, IConfiguration configuration, ILogger<HomeController> logger)
         {
             this.settings = settings;
             this.configuration = configuration;
+            this.logger = logger;
         }
 
         public IActionResult Index()
@@ -27,6 +30,7 @@ namespace SettingsReader.Controllers
             ViewBag.VariableToOverride = settings.VariableToOverride;
             ViewBag.SecretVariable = configuration["SecretVariable"] ?? string.Empty;
             ViewBag.SecretConnectionString = configuration.GetConnectionString("SecretConnectionString") ?? string.Empty;
+            this.logger.LogInformation("Logging some information when the Index page is hit.");
             return View();
         }
 
