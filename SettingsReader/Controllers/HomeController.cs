@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,8 @@ namespace SettingsReader.Controllers
             ViewBag.VariableToOverride = settings.VariableToOverride;
             ViewBag.SecretVariable = configuration["SecretVariable"] ?? string.Empty;
             ViewBag.SecretConnectionString = configuration.GetConnectionString("SecretConnectionString") ?? string.Empty;
+            ViewBag.IP = this.HttpContext.Connection.RemoteIpAddress.ToString();
+            ViewBag.UserAgent = this.HttpContext.Request.Headers["User-Agent"].ToString();
             this.logger.LogInformation("Logging some information when the Index page is hit.");
             return View();
         }
