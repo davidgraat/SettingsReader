@@ -1,4 +1,6 @@
-﻿@{
+﻿@using SettingsReader.Application
+@inject IAppSettings AppSettings
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,4 +11,6 @@
         <p><strong>SecretConnectionString: </strong>@ViewBag.SecretConnectionString</p>
         <p><strong>IP Address: </strong>@ViewBag.IP</p>
         <p><strong>User Agent: </strong>@ViewBag.UserAgent</p>
+        <p><strong>AppSettings Variable1: </strong>@AppSettings.Variable1</p>
+        <p><strong>AppSettings EvariantSettings TokenUri: </strong>@AppSettings.EvariantSettings.TokenUri</p>
     </div>

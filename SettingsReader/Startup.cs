@@ -36,6 +36,10 @@ namespace SettingsReader
             this.Configuration.Bind("MySettings", settings);
             services.AddSingleton<IMySettings>(settings);
 
+            var appSettings = new AppSettings();
+            this.Configuration.Bind("AppSettings", appSettings);
+            services.AddSingleton<IAppSettings> (appSettings);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
